@@ -23,10 +23,10 @@ public interface ChatAppDao {
     //INSERT
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(User user);
+    void insertUsers(List<User> users);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Message message);
+    void insertMessages(List<Message> messages);
 
 
     //SELECT
@@ -35,13 +35,13 @@ public interface ChatAppDao {
     LiveData<Message> findMessageById(long id);
 
     @Query("SELECT * FROM Message")
-    List<Message> findAllMessages();
+    LiveData<List<Message>> findAllMessages();
 
     @Query("SELECT * FROM User WHERE id = :id")
     LiveData<User> findUserById(long id);
 
     @Query("SELECT * FROM User")
-    List<User> findAllUsers();
+    LiveData<List<User>> findAllUsers();
 
 
 
@@ -58,4 +58,8 @@ public interface ChatAppDao {
 
     @Delete
     public void deleteUser (User user);
+
+
+    @Query("SELECT * FROM Message m LIMIT 20 OFFSET :offset")
+    LiveData<List<Message>> get20Message(int offset);
 }

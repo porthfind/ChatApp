@@ -28,14 +28,15 @@ public class AppDbChatAppHelper implements  DBChatAppHelper {
 
     //insert
     @Override
-    public void saveMessage(Message message) {
-        mChatAppDao.insert(message);
+    public void saveMessages(List<Message> messages) {
+        mChatAppDao.insertMessages(messages);
     }
 
     @Override
-    public void saveUser(User user) {
-        mChatAppDao.insert(user);
+    public void saveUsers(List<User> users) {
+        mChatAppDao.insertUsers(users);
     }
+
 
     //delete
     @Override
@@ -70,13 +71,18 @@ public class AppDbChatAppHelper implements  DBChatAppHelper {
     }
 
     @Override
-    public List<Message> findAllMessages(){
+    public LiveData<List<Message> >findAllMessages(){
         return mChatAppDao.findAllMessages();
     }
 
     @Override
-    public List<User> findAllUsers(){
+    public LiveData<List<User> >findAllUsers(){
         return mChatAppDao.findAllUsers();
+    }
+
+    @Override
+    public LiveData<List<Message>>get20Message(int offset){
+        return mChatAppDao.get20Message(offset);
     }
 
 }

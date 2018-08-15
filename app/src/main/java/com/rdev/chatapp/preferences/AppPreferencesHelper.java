@@ -22,11 +22,11 @@ public class AppPreferencesHelper implements PreferencesHelper{
 
     @Override
     public boolean isFirstRun() {
-        return mPrefs.getBoolean(AppConstants.FIRST_RUN, false);
+        return mPrefs.getBoolean(AppConstants.FIRST_RUN, true);
     }
 
     @Override
-    public void setIsFirstRun(Boolean first) {
+    public void setIsFirstRun() {
         mPrefs.edit().putBoolean(AppConstants.FIRST_RUN, false).apply();
     }
 }

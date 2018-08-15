@@ -16,8 +16,9 @@ public interface DBChatAppHelper {
     void deleteAllUsers();
     LiveData<Message> findMessageById(long id);
     LiveData<User> findUserById(long id);
-    List<Message> findAllMessages();
-    List<User> findAllUsers();
-    void saveMessage(Message message);
-    void saveUser(User user);
+    LiveData<List<Message>> findAllMessages();
+    LiveData<List<User>> findAllUsers();
+    void saveMessages(List<Message> messages);
+    void saveUsers(List<User> users);
+    LiveData<List<Message>>get20Message(int offset);
 }

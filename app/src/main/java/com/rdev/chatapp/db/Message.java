@@ -28,7 +28,7 @@ public class Message {
     private String content;
 
     @ColumnInfo(name = "attachments")
-    private ArrayList<String> attachments;
+    private String attachments;
 
     @NonNull
     public long getId() {
@@ -55,11 +55,11 @@ public class Message {
         this.content = content;
     }
 
-    public ArrayList<String> getAttachments() {
+    public String getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(ArrayList<String> attachments) {
+    public void setAttachments(String attachments) {
         this.attachments = attachments;
     }
 }

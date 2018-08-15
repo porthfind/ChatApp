@@ -9,9 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rdev.chatapp.R;
-import com.rdev.chatapp.vo.Message;
+import com.rdev.chatapp.db.Message;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +58,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.AdHold
 
     }
 
-    public void setMessages(ArrayList<Message> messages){
+    public void setMessages(List<Message> messages){
 
         this.mMessage.clear();
         this.mMessage.addAll(messages);
