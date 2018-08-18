@@ -5,7 +5,6 @@ package com.rdev.chatapp.utils;
  */
 
 
-//class todas as constantes
 public class AppConstants {
 
         public static String PREFERENCE_NAME = "chat_Preference";

@@ -10,7 +10,7 @@ import dagger.android.ContributesAndroidInjector;
  * Created by ritadacostaferreira on 11/08/18.
  */
 
-//onde vai ser injectado- apenas na class Main
+
 @Module
 public abstract class ActivityModule {
 

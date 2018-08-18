@@ -9,7 +9,6 @@ import com.rdev.chatapp.utils.ViewModelProviderFactory;
 import dagger.Module;
 import dagger.Provides;
 
-//MainViewModule providencia para se for necesario a sua utilizaçao noutro sitio
 
 
     @Module

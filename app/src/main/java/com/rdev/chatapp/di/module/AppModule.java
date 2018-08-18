@@ -25,9 +25,6 @@ import dagger.Provides;
  * Created by ritadacostaferreira on 11/08/18.
  */
 
-//Providenciar certos modulos para a app. Certos objetos podem injetados em certas coisas como actividades.
-//vou provindenciar o contexto.
-    //Tenho varios modulos, aqui tenho coisas comuns em toda a appl, como o contexto. Digo as coisas q vao estar disponiveis em qq parte.
 @Module
 public class AppModule {
 

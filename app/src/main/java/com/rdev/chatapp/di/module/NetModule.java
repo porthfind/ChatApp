@@ -53,9 +53,9 @@ public class NetModule {
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.MAINBASEURL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())//factories - libraria GSON
-                .addCallAdapterFactory(new LiveDataCallAdapterFactory()) //Rx e Live, Live data mas q esta consciente do lifecycle da activity, se a ctivity passar p 2 plano, o objeto deica de observar e ja nao ha erro
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //Rx : observe e observable
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }
 

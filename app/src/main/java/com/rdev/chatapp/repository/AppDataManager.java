@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rdev.chatapp.api.ApiResponse;
 import com.rdev.chatapp.api.MainApiHelper;
 import com.rdev.chatapp.db.DBChatAppHelper;
@@ -13,8 +14,11 @@ import com.rdev.chatapp.db.Message;
 import com.rdev.chatapp.db.User;
 import com.rdev.chatapp.preferences.PreferencesHelper;
 import com.rdev.chatapp.utils.AbsentLiveData;
+import com.rdev.chatapp.vo.Attachment;
+import com.rdev.chatapp.vo.CardViewItem;
 import com.rdev.chatapp.vo.Conversation;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +38,6 @@ public class AppDataManager implements DataManager {
     private DBChatAppHelper mDbHelper;
 
 
-    //injectar os diferentes modulos
     @Inject
     public AppDataManager(MainApiHelper mainApiHelper, PreferencesHelper preferencesHelper, DBChatAppHelper dbChatAppHelper) {
         this.mMainApiHelper = mainApiHelper;
@@ -45,12 +48,16 @@ public class AppDataManager implements DataManager {
 
     @Override
     public boolean isFirstRun() {
+
+        Timber.d("4");
         return mPreferenceHelper.isFirstRun();
     }
 
     @Override
     public void setFirstRun() {
-         mPreferenceHelper.setIsFirstRun();
+
+        Timber.d("5");
+        mPreferenceHelper.setIsFirstRun();
     }
 
     @Override
@@ -58,10 +65,10 @@ public class AppDataManager implements DataManager {
         return mMainApiHelper.getConversation();
     }
 
-    @Override
+    /*@Override
     public LiveData<List<Message>> get20Message(int offset){
         return mDBChatAppHelper.get20Message(offset);
-    }
+    }*/
 
     //read from api and save on db - transforms the data from api to data from db
     public LiveData<Boolean> saveValues()
@@ -87,7 +94,9 @@ public class AppDataManager implements DataManager {
                         message.setUserId(tmpList.get(i).getUserId());
                         message.setContent(tmpList.get(i).getContent());
                         Gson gson = new Gson();
+
                         String json = gson.toJson(tmpList.get(i).getAttachments());
+
                         message.setAttachments(json);
                         list.add(message);
                     }
@@ -134,17 +143,71 @@ public class AppDataManager implements DataManager {
         return mDbHelper.findAllUsers();
     }
 
-    @Override
-    public LiveData<List<Message>> findAllMessages() {
-        return mDbHelper.findAllMessages();
 
-        /*
-        *  receber as mensagens
-        *  for (mensage)
-        *  [ CONVERSAO ---UserSimple userObject = gson.fromJson(userJson, UserSimple.class);
-        *   for(attachments)
-        *  ]
-        *  devolve estrutura nova.
-        * */
+    @Override
+    public LiveData<List<Message>> getAllMessages(){
+        return mDbHelper.findAllMessages();
+    }
+
+    @Override
+    public LiveData<List<CardViewItem>> findAllMessages() {
+
+        LiveData<List<CardViewItem>> result = AbsentLiveData.create();
+        final MutableLiveData<List<CardViewItem>> updatedResult = new MediatorLiveData<>();
+        List<CardViewItem> tmp = new ArrayList<>();
+
+        //This method waits until it has the data to process
+        result = Transformations.switchMap(getAllMessages(), dbResponse->{
+            List<Attachment> attachments = new ArrayList<>();
+
+            if(!dbResponse.isEmpty()){
+
+                for(int i=0; i<dbResponse.size(); i++){
+                    CardViewItem item = new CardViewItem();
+
+                    item.setId(dbResponse.get(i).getId());
+                    item.setContent(dbResponse.get(i).getContent());
+                    item.setUserId(dbResponse.get(i).getUserId());
+
+
+                    if(dbResponse.get(i).getAttachments().compareToIgnoreCase("null")!=0) //Has attachments
+                    {
+
+                        //transforms the srting into list of attachments
+                        Type listType = new TypeToken<List<Attachment>>(){}.getType();
+                        attachments = new Gson().fromJson(dbResponse.get(i).getAttachments(), listType);
+
+                        for(int j=0; j<attachments.size() ; j++) {
+
+                            item.setTitulo(attachments.get(j).getTitle());
+                            item.setUrl(attachments.get(j).getUrl());
+                            item.setThumbnailurl(attachments.get(j).getThumbnailUrl());
+                        }
+                    }
+                    tmp.add(item);
+                }
+                updatedResult.postValue(tmp);
+            }
+                return updatedResult;
+            });
+        return result;
+
+
+
+    }
+
+    @Override
+    public LiveData<Boolean> getCount(){
+
+        LiveData<Boolean> result = AbsentLiveData.create();
+        final MutableLiveData<Boolean> updatedResult = new MediatorLiveData<>();
+
+        result = Transformations.switchMap(getAllMessages(), allMessagesResponse->{
+
+            updatedResult.postValue(false);
+            return updatedResult;
+        });
+        return result;
+
     }
 }

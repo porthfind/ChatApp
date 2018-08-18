@@ -13,6 +13,7 @@ import com.rdev.chatapp.R;
 import com.rdev.chatapp.databinding.ActivityMainBinding;
 import com.rdev.chatapp.db.User;
 import com.rdev.chatapp.ui.base.BaseActivity;
+import com.rdev.chatapp.vo.CardViewItem;
 import com.rdev.chatapp.vo.Conversation;
 import com.rdev.chatapp.db.Message;
 
@@ -48,13 +49,15 @@ public class MainActivity  extends BaseActivity<ActivityMainBinding, MainViewMod
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adapter = new MessagesAdapter(this, new ArrayList<Message>());
+        adapter = new MessagesAdapter(this);
 
         mActivityStartBinding = getViewDataBinding();
         mainViewModel.firstTime().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
+                Timber.d("1");
                 if(aBoolean !=null && aBoolean){
+                    Timber.d("2");
                     mainViewModel.setisFirstRun();
                 }
 
@@ -66,9 +69,16 @@ public class MainActivity  extends BaseActivity<ActivityMainBinding, MainViewMod
         mActivityStartBinding.recyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mActivityStartBinding.recyclerview.setAdapter(adapter);
 
-        mainViewModel.getValuesFromDb();
+        mainViewModel.getValuesFromDb().observe(this, new Observer<List<CardViewItem>>() {
+            @Override
+            public void onChanged(@Nullable List<CardViewItem> cardViewItems) {
+                for(int i=0; i<cardViewItems.size();i++){
+                    adapter.setMessages(cardViewItems);
+                }
+            }
+        });
 
-        mainViewModel.getmMessage().observe(this, new Observer<List<Message>>() {
+        /*mainViewModel.getmMessage().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(@Nullable List<Message> messages) {
                 Timber.d("------------------INICIO-----------------------------------");
@@ -85,7 +95,7 @@ public class MainActivity  extends BaseActivity<ActivityMainBinding, MainViewMod
                 for(int i=0; i<users.size(); i++)
                     Timber.d("===USER==== " + users.get(i).getName());
             }
-        });
+        });*/
 
     }
 

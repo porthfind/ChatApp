@@ -17,7 +17,6 @@ import dagger.android.AndroidInjectionModule;
  * Created by ritadacostaferreira on 11/08/18.
  */
 
-//Ponto onde se ligam todas as coisas
 @Singleton
 @Component(modules = {AndroidInjectionModule.class, NetModule.class, AppModule.class, ActivityModule.class})
 public interface MainComponent

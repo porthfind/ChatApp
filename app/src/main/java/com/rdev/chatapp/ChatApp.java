@@ -16,19 +16,13 @@ import timber.log.Timber;
  * Created by ritadacostaferreira on 11/08/18.
  */
 
-//a tua ap vai usar di.
-    //vou usar di nas activities
-    //vou injector em toda a app
-    //overrite androidinjec: esta disponivel p toda a app este dispatching Andoird
-    //class global
-    //injector o contexto da app em toda a app (extends Application
 
-public class ChatApp extends Application implements HasActivityInjector{ //tem depency injector
+public class ChatApp extends Application implements HasActivityInjector{
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
 
-    //diz onde vai ser injectado
+
         @Override
         public void onCreate() {
             super.onCreate();

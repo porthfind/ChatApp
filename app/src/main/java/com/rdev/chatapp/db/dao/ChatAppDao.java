@@ -46,6 +46,8 @@ public interface ChatAppDao {
 
 
 
+
+
     //DELETE
     @Query("DELETE FROM Message")
     public void deleteAllMessages();

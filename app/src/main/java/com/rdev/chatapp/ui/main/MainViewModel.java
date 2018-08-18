@@ -11,6 +11,7 @@ import com.rdev.chatapp.db.User;
 import com.rdev.chatapp.repository.DataManager;
 import com.rdev.chatapp.ui.base.BaseViewModel;
 import com.rdev.chatapp.utils.AbsentLiveData;
+import com.rdev.chatapp.vo.CardViewItem;
 import com.rdev.chatapp.vo.Conversation;
 import com.rdev.chatapp.db.Message;
 
@@ -26,8 +27,8 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
     private final DataManager mDataManager;
     LiveData<List<User>>  user;
     LiveData<List<Message>> mMessage;
+    LiveData<List<CardViewItem>> mCardViewItem;
 
-    //AbsentLiveData LiveData null object
     public MainViewModel(DataManager mDataManager) {
         super(mDataManager);
         this.mDataManager = mDataManager;
@@ -55,31 +56,33 @@ public class MainViewModel extends BaseViewModel<MainNavigator> {
 
 
 
-
     //verifies if is the first time we are running the app
     public LiveData<Boolean> firstTime(){
         if(mDataManager.isFirstRun())
         {
+            Timber.d("-------------- It is first time reading from database ");
             return mDataManager.saveValues();
         }
         else
         {
-
-            Timber.d("-------------- Is not first read from database ");
-            return null;
+            Timber.d("-------------- It is not first time reading from database ");
+            return mDataManager.getCount();
         }
     }
 
-    //initializes BD
-    public void getValuesFromDb()
+
+    public LiveData<List<CardViewItem>> getValuesFromDb()
     {
         user = AbsentLiveData.create();
         user = mDataManager.findAllUsers();
-        mMessage = AbsentLiveData.create();
-        mMessage = mDataManager.findAllMessages();//get20Message
+        mCardViewItem = AbsentLiveData.create();
+        mCardViewItem = mDataManager.findAllMessages();//get20Message
+
+        return mCardViewItem;
     }
 
     public void setisFirstRun(){
+        Timber.d("3");
         mDataManager.setFirstRun();
     }
 
