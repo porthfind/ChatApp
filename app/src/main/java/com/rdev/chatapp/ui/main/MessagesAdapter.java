@@ -32,7 +32,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.AdHold
     Context mContext;
     private ArrayList<CardViewItem> cardViewItems;
     final String ME = "Me";
-    final String OTHERS = "Others";
+    final String USERS = "User";
 
     public MessagesAdapter(@Nonnull Context context) {
         mContext = context;
@@ -100,7 +100,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.AdHold
 
             if(message.getUrl() != null)//attach
             {
-                holder.name.setText(OTHERS);
+                holder.name.setText(USERS + String.valueOf(message.getUserId()));
                 holder.name.setGravity(Gravity.LEFT);
                 holder.content.setText(message.getContent());
                 holder.content.setGravity(Gravity.LEFT);
@@ -120,7 +120,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.AdHold
             else {
                 holder.content.setText(message.getContent());
                 holder.content.setGravity(Gravity.LEFT);
-                holder.name.setText(OTHERS);
+                holder.name.setText(USERS + String.valueOf(message.getUserId()));
                 holder.name.setGravity(Gravity.LEFT);
                 holder.content.setGravity(Gravity.LEFT);
                 holder.attachement.setVisibility(View.GONE);

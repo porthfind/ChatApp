@@ -41,8 +41,8 @@
         <ImageView
             android:id="@+id/attachment"
             android:padding="@dimen/padding_textView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="@dimen/photo_attach_dimension"
+            android:layout_height="@dimen/photo_attach_dimension"
             android:layout_gravity="center"/>
 
 

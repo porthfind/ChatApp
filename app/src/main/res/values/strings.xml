@@ -3,7 +3,4 @@
     <string name="app_name">Chat</string>
 
 
-    <!--Main Activity-->
-    <string name="text_message">Write your message</string>
-    <string name="send">Send</string>
 </resources>

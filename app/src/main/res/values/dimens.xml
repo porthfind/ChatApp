@@ -2,4 +2,5 @@
 <resources>
     <dimen name="profile_image_dimension">52dp</dimen>
     <dimen name="padding_textView">10dp</dimen>
+    <dimen name="photo_attach_dimension">200dp</dimen>
 </resources>

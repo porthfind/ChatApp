@@ -24,14 +24,11 @@ public class AppPreferencesHelper implements PreferencesHelper{
 
     @Override
     public boolean isFirstRun() {
-        Timber.d("6");
         return mPrefs.getBoolean(AppConstants.FIRST_RUN, true);
     }
 
     @Override
     public void setIsFirstRun() {
-
-        Timber.d("7");
         mPrefs.edit().putBoolean(AppConstants.FIRST_RUN, false).apply();
     }
 }
