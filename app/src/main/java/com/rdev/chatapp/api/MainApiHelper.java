@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 
 public interface MainApiHelper {
 
-    @GET("conversation")//informaçao q recebo do retrofit q fica no obj LiveData
+    @GET("conversation")
     LiveData<ApiResponse<Conversation>> getConversation();
 
 

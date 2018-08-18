@@ -18,10 +18,8 @@ import java.util.regex.Pattern;
 import retrofit2.Response;
 import timber.log.Timber;
 
-//classe standard, trata da API response para o Retrofit (Google)- Standard para repsosta
-
 /* *
-* Standard class to threat API response (int this case => Retrofit2)
+* Retrofit2
 * */
 public class ApiResponse<T> {
 

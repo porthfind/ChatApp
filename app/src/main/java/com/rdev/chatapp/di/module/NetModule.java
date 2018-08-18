@@ -61,7 +61,7 @@ public class NetModule {
 
     @Provides
     @Singleton
-    @SuppressWarnings("unused")//onde estao as chamadas à api
+    @SuppressWarnings("unused")
     public MainApiHelper providesMainWebService(
             Retrofit retrofit) {
         return retrofit.create(MainApiHelper.class);

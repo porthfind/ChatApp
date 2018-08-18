@@ -28,7 +28,6 @@ import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 
 
-//converter resultado retrofit em objeto LiveData
 public class LiveDataCallAdapterFactory extends CallAdapter.Factory{
 
     @Override

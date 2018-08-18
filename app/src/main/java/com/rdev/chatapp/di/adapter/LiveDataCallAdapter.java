@@ -19,7 +19,7 @@ import timber.log.Timber;
  */
 
 
-//class da google
+//class google
 public class LiveDataCallAdapter <R> implements CallAdapter<R, LiveData<ApiResponse<R>>> {
     private final Type responseType;
     public LiveDataCallAdapter(Type responseType) {

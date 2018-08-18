@@ -49,14 +49,12 @@ public class AppDataManager implements DataManager {
     @Override
     public boolean isFirstRun() {
 
-        Timber.d("4");
         return mPreferenceHelper.isFirstRun();
     }
 
     @Override
     public void setFirstRun() {
 
-        Timber.d("5");
         mPreferenceHelper.setIsFirstRun();
     }
 
