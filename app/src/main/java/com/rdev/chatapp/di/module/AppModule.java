@@ -48,7 +48,7 @@ public class AppModule {
     }
     @Singleton
     @Provides
-    ChatAppDao provideLocalCoinDao(AppDatabase db) {
+    ChatAppDao provideChatAppDao(AppDatabase db) {
         return db.chatAppDao();
     }
 
